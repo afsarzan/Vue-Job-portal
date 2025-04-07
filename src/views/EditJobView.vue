@@ -89,7 +89,7 @@ onMounted(() => {
   <section class="bg-green-50">
     <div class="container m-auto max-w-2xl py-24">
       <div
-        class="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
+        class="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0 animate-fade-in"
       >
         <form @submit.prevent="handleSubmit">
           <h2 class="text-3xl text-center font-semibold mb-6">Edit Job</h2>
@@ -102,7 +102,7 @@ onMounted(() => {
               v-model="form.type"
               id="type"
               name="type"
-              class="border rounded w-full py-2 px-3"
+              class="border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               required
             >
               <option value="Full-Time">Full-Time</option>
@@ -121,7 +121,7 @@ onMounted(() => {
               v-model="form.title"
               id="name"
               name="name"
-              class="border rounded w-full py-2 px-3 mb-2"
+              class="border rounded w-full py-2 px-3 mb-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               placeholder="eg. Beautiful Apartment In Miami"
               required
             />
@@ -134,7 +134,7 @@ onMounted(() => {
               id="description"
               v-model="form.description"
               name="description"
-              class="border rounded w-full py-2 px-3"
+              class="border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               rows="4"
               placeholder="Add any job duties, expectations, requirements, etc"
             ></textarea>
@@ -148,7 +148,7 @@ onMounted(() => {
               id="salary"
               v-model="form.salary"
               name="salary"
-              class="border rounded w-full py-2 px-3"
+              class="border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               required
             >
               <option value="Under $50K">under $50K</option>
@@ -172,7 +172,7 @@ onMounted(() => {
               v-model="form.location"
               id="location"
               name="location"
-              class="border rounded w-full py-2 px-3 mb-2"
+              class="border rounded w-full py-2 px-3 mb-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               placeholder="Company Location"
               required
             />
@@ -189,7 +189,7 @@ onMounted(() => {
               v-model="form.company.name"
               id="company"
               name="company"
-              class="border rounded w-full py-2 px-3"
+              class="border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               placeholder="Company Name"
             />
           </div>
@@ -204,7 +204,7 @@ onMounted(() => {
               id="company_description"
               v-model="form.company.description"
               name="company_description"
-              class="border rounded w-full py-2 px-3"
+              class="border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               rows="4"
               placeholder="What does your company do?"
             ></textarea>
@@ -221,7 +221,7 @@ onMounted(() => {
               v-model="form.company.contactEmail"
               id="contact_email"
               name="contact_email"
-              class="border rounded w-full py-2 px-3"
+              class="border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               placeholder="Email address for applicants"
               required
             />
@@ -237,14 +237,14 @@ onMounted(() => {
               v-model="form.company.contactPhone"
               id="contact_phone"
               name="contact_phone"
-              class="border rounded w-full py-2 px-3"
+              class="border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
               placeholder="Optional phone for applicants"
             />
           </div>
 
           <div>
             <button
-              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline transition-colors duration-300"
               type="submit"
             >
               Update Job
@@ -255,3 +255,20 @@ onMounted(() => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

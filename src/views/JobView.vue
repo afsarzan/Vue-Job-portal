@@ -54,7 +54,7 @@ onMounted(() => {
       <div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
         <main>
           <div
-            class="bg-white p-6 rounded-lg shadow-md text-center md:text-left"
+            class="bg-white p-6 rounded-lg shadow-md text-center md:text-left animate-fade-in"
           >
             <div class="text-gray-500 mb-4">{{ state.job.type }}</div>
             <h1 class="text-3xl font-bold mb-4">{{ state.job.title }}</h1>
@@ -66,7 +66,7 @@ onMounted(() => {
             </div>
           </div>
 
-          <div class="bg-white p-6 rounded-lg shadow-md mt-6">
+          <div class="bg-white p-6 rounded-lg shadow-md mt-6 animate-fade-in" style="animation-delay: 0.2s">
             <h3 class="text-green-800 text-lg font-bold mb-6">
               Job Description
             </h3>
@@ -84,7 +84,7 @@ onMounted(() => {
         <!-- Sidebar -->
         <aside>
           <!-- Company Info -->
-          <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="bg-white p-6 rounded-lg shadow-md animate-fade-in" style="animation-delay: 0.3s">
             <h3 class="text-xl font-bold mb-6">Company Info</h3>
 
             <h2 class="text-2xl">{{ state.job.company.name }}</h2>
@@ -109,16 +109,16 @@ onMounted(() => {
           </div>
 
           <!-- Manage -->
-          <div class="bg-white p-6 rounded-lg shadow-md mt-6">
+          <div class="bg-white p-6 rounded-lg shadow-md mt-6 animate-fade-in" style="animation-delay: 0.4s">
             <h3 class="text-xl font-bold mb-6">Manage Job</h3>
             <RouterLink
               :to="`/jobs/edit/${state.job.id}`"
-              class="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+              class="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block transition-colors duration-300"
               >Edit Job</RouterLink
             >
             <button
               @click="handleDeleteJob"
-              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block transition-colors duration-300"
             >
               Delete Job
             </button>
@@ -132,3 +132,21 @@ onMounted(() => {
     <PulseLoader />
   </div>
 </template>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
