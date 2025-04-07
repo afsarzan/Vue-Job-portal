@@ -3,7 +3,7 @@ import router from '@/router';
 import { reactive, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useToast } from 'vue-toastification';
-import axios from 'axios';
+import { getJobById, updateJob } from '@/utils/localStorage';
 
 const route = useRoute();
 
@@ -30,7 +30,7 @@ const state = reactive({
 
 const toast = useToast();
 
-const handleSubmit = async () => {
+const handleSubmit = () => {
   const updatedJob = {
     title: form.title,
     type: form.type,
@@ -46,29 +46,37 @@ const handleSubmit = async () => {
   };
 
   try {
-    const response = await axios.put(`/api/jobs/${jobId}`, updatedJob);
-    toast.success('Job Updated Successfully');
-    router.push(`/jobs/${response.data.id}`);
+    const job = updateJob(jobId, updatedJob);
+    if (job) {
+      toast.success('Job Updated Successfully');
+      router.push(`/jobs/${job.id}`);
+    } else {
+      toast.error('Job Not Found');
+    }
   } catch (error) {
-    console.error('Error fetching job', error);
-    toast.error('Job Was Not Added');
+    console.error('Error updating job', error);
+    toast.error('Job Was Not Updated');
   }
 };
 
-onMounted(async () => {
+onMounted(() => {
   try {
-    const response = await axios.get(`/api/jobs/${jobId}`);
-    state.job = response.data;
-    // Populate inputs
-    form.type = state.job.type;
-    form.title = state.job.title;
-    form.description = state.job.description;
-    form.salary = state.job.salary;
-    form.location = state.job.location;
-    form.company.name = state.job.company.name;
-    form.company.description = state.job.company.description;
-    form.company.contactEmail = state.job.company.contactEmail;
-    form.company.contactPhone = state.job.company.contactPhone;
+    const job = getJobById(jobId);
+    if (job) {
+      state.job = job;
+      // Populate inputs
+      form.type = state.job.type;
+      form.title = state.job.title;
+      form.description = state.job.description;
+      form.salary = state.job.salary;
+      form.location = state.job.location;
+      form.company.name = state.job.company.name;
+      form.company.description = state.job.company.description;
+      form.company.contactEmail = state.job.company.contactEmail;
+      form.company.contactPhone = state.job.company.contactPhone;
+    } else {
+      router.push('/404');
+    }
   } catch (error) {
     console.error('Error fetching job', error);
   } finally {
